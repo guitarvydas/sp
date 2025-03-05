@@ -1,7 +1,7 @@
 styleexpand {
   main = item+
   item =
-    | str<"style"> spaces ":" spaces stylestr -- style
+    | "style" spaces "=" spaces stylestr -- style
     | any                       -- default
   stylestr = dq styleitem+ dq
   styleitem=
@@ -14,6 +14,5 @@ styleexpand {
   sign = "+" | "-"
   fdigit = digit | "."
   dq = "\""
-  str<s> = dq s dq
 }
 

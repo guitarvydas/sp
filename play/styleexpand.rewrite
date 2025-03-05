@@ -12,6 +12,5 @@
   sign [c] = ‛«c»’
   fdigit [c] = ‛«c»’
   dq [c] = ‛«c»’
-  str [dq s dq2] = ‛«dq»«s»«dq2»’
 }
 

@@ -38,7 +38,7 @@ const grammar = String.raw`
 styleexpand {
   main = item+
   item =
-    | str<"style"> spaces ":" spaces stylestr -- style
+    | "style" spaces "=" spaces stylestr -- style
     | any                       -- default
   stylestr = dq styleitem+ dq
   styleitem=
@@ -51,7 +51,6 @@ styleexpand {
   sign = "+" | "-"
   fdigit = digit | "."
   dq = "\""
-  str<s> = dq s dq
 }
 
 `;
@@ -149,11 +148,6 @@ dq : function (c,) {
 enter_rule ("dq");
     set_return (`${c.rwr ()}`);
 return exit_rule ("dq");
-},
-str : function (dq,s,dq2,) {
-enter_rule ("str");
-    set_return (`${dq.rwr ()}${s.rwr ()}${dq2.rwr ()}`);
-return exit_rule ("str");
 },
 _terminal: function () { return this.sourceString; },
 _iter: function (...children) { return children.map(c => c.rwr ()); }
