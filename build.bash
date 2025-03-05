@@ -1,6 +1,7 @@
 #!/bin/bash
-src=drawio.sp
-gen=sp.py
+# usage: ./build.bash _spec_.sp _outfile_.py
+src=$1
+gen=$2
 gr=sp.grammar
 rw=sp.rewrite
 d2j=das2json-bootstrap/mac/das2json

@@ -76,6 +76,11 @@ class CharacterStream:
         return chr (0)
 
 class Receptor:
+    # The Stream Parser code generator uses this class as support code to create custom parsers that can be bolted
+    # onto the front end of software components, making the components act like little software T-cell receptors. The custom
+    # parsers pattern-match against incoming streams of characters and perform actions when certain patterns occur in
+    # the input.
+    #
     # A receptor parses the input stream of characters and keeps track of how it got there and what it is working on.
     # A receptor uses rules that can call other rules (so, we need to use stacks, to keep everything separated).
     # Each rule begins a fresh string and builds it up.
