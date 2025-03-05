@@ -2,12 +2,12 @@ sp {
   main = spaces rule rule* defaction*
 
   rule =
-    | ":" spaces rulename "^=" line? spaces pattern+ -- return_value
-    | ":" spaces rulename "@=" line? spaces pattern+ -- rewrite_value
+    | "^" spaces rulename "=" line? spaces pattern+ -- return_value
+    | "#" spaces rulename "=" line? spaces pattern+ -- rewrite_value
     | line spaces -- empty
 
   defaction =
-    | "@" spaces rulename "=" line? spaces action+ spaces
+    | "#:" spaces rulename "=" line? spaces action+ spaces
 
   pattern =
     | pattern1 line? spaces -- pattern

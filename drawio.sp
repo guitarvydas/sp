@@ -1,7 +1,7 @@
-: Drawio ^=
+^ Drawio =
   XML Spaces _end
 
-: XML ^=
+^ XML =
   Spaces "<" Name Attributes
   [
     | ">": Content
@@ -12,7 +12,7 @@
     | "/>": 
   ]
 
-: Content ^=
+^ Content =
   <<<
     Spaces
     [*
@@ -23,9 +23,9 @@
     ]
   >>>
 
-: mxGeometry @= XML
+# mxGeometry = XML
 
-: Attributes ^=
+^ Attributes =
   <<<
     [*
       | "style=": Style
@@ -36,9 +36,9 @@
     ]
   >>>
 
-: Style @= "style=" String
+# Style = "style=" String
 
-: Name ^=
+^ Name =
   <<<
     [*
       | " ":   _break
@@ -52,7 +52,7 @@
     ]
   >>>
 
-: Stuff ^=
+^ Stuff =
   <<<
     [*
       | ">": _break
@@ -63,7 +63,7 @@
     ]
   >>>
 
-: Spaces ^=
+^ Spaces =
   <<<
     [*
       | " ": .
@@ -73,10 +73,10 @@
     ]
   >>>
 
-: String ^=
+^ String =
   "\"" NotDquotes "\""
 
-: NotDquotes ^=
+^ NotDquotes =
   <<<
     [*
       | "\"": _break
@@ -84,8 +84,8 @@
     ]
   >>>
 
-: EndMxCell @= "</mxCell>" Spaces
+# EndMxCell = "</mxCell>" Spaces
 
-@ mxGeometry = _ignore_value
-@ Style = _ignore_value
-@ EndMxCell = _ignore_value
+#: mxGeometry = _ignore_value
+#: Style = _ignore_value
+#: EndMxCell = _ignore_value
