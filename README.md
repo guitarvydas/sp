@@ -50,11 +50,15 @@ An example of the early use of this technique is the [PT Pascal compiler](https:
 # usage
 
 To generate the stream parser
+1. write a stream parse specification as a `.sp` file
+2. `make` - at this time, the input spec is hard-coded to be `drawio.sp` and the output is hard-coded as `sp.py`
+   - this, also, runs the resulting parser `sp.py` against the hard-coded test file `sp2py.drawio`
 
-[TBD]
+To copy the parser to another project, copy 2 files `sp.py` and `receptor.py`.
 
-, along with the supplied library file `lib/receptor.py` with input from stdin. The parser outputs the result on stdout.
+# Documentation
+See `./doc/sp.md`.
 
 # helper 
 
-For example, as the parser runs, it makes the current rule name accessible, so you can track what's being parsed by whatever rule as you debug.
+As the parser runs, it makes the current rule name accessible, so you can track what's being parsed by whatever rule as you debug. The names of rules are pushed onto the variable `self.breadcrumb_stack`. The topmost name is the currently-running rule.
