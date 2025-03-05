@@ -8,17 +8,17 @@ This tool is a parser generator, rather than a formal language specification.
 
 Two kinds of rules can be defined using the following syntax:
 ```
-: name ^= ...
-: name @= ...
+^ name = ...
+# name = ...
 ```
 
-The first form `... ^= ...` defines a parsing rule which simply collects up what it finds, then returns the collected as a string to whatever rule called it.
+The first form `^ ... = ...` defines a parsing rule which simply collects up what it finds, then returns the collected as a string to whatever rule called it.
 
-The second form `... @= ...` defines a parsing rule which calls an action just before returning the collected string.
+The second form `# ... = ...` defines a parsing rule which calls an action just before returning the collected string.
 
 Actions are defined at the end of the file using the syntax:
 ```
-@ name = _ignore_value
+#: name = _ignore_value
 ```
 
 The built-in operator `_ignore_value` clears the return string. This is the only action defined at this time. It seems likely that another action will be added, that calls an "external" function with the collected string as a parameter, then returns whatever string is returned by the "external" function. As bizarre as it may sound, only 2 actions are required for culling .drawio diagrams:
@@ -52,12 +52,25 @@ For example, imagine parsing the body of a curly-braced block of statements. The
 CompoundBody ^=
   "{"
 	<<<
-	  [ 
-		| Statement: .
+	  Statement
+	  [*
+		| "if":
+		| "while":
 		| *: _break
 	  ]
 	>>>
   "}"
 ```
 
-  
+N.B. this example is incomplete, since it shows only a few possible statement types. I intend to allow for choice-calling, hence, expect to rewrite this example in a more concise manner. Probably something like:
+```
+CompoundBody ^=
+  "{"
+	<<<
+	  [ Statement
+		| _ok:
+		| *: _break
+	  ]
+	>>>
+  "}"
+```
