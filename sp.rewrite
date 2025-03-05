@@ -35,8 +35,6 @@ def «rulename» (_r):«line»⤷
 
   endop [_end line? spaces] = ‛_r.eof ()«line»\n’
 
-  filename [c+] = ‛«c»’
-
   rulename [name spaces] = ‛«name»’
 
   rulecall [name spaces] = ‛_r.call («name»)\n_r.append_returned_string ()\n’

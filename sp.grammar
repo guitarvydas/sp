@@ -17,8 +17,6 @@ sp {
 
   endop = kw<"_end"> line? spaces
 
-  filename = (~" " ~"⊣" any)+
-
   rulename = name spaces
 
   rulecall = name spaces
