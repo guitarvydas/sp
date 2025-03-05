@@ -298,9 +298,6 @@ def EndMxCell__action__ (_r):
 
 import sys
 import receptor
-class Place_Holder:
-    def __init__ (self):
-        self.name = "place-holder-name"
 
 # main...
 _r = receptor.Receptor (sys.stdin)
