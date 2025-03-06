@@ -1,6 +1,8 @@
 def Drawio (_r):                                            #line 1
     _r.push_new_string ()
     _r.begin_breadcrumb ("Drawio")
+    _r.call (Spaces)
+    _r.append_returned_string ()
     _r.call (XML)
     _r.append_returned_string ()
     _r.call (Spaces)
@@ -289,15 +291,18 @@ def EndMxCell (_r):
 def mxGeometry__action__ (_r):
     return _r.return_ignore_pop ()                          #line 89
 
-def Style__action__ (_r):
+def EndMxCell__action__ (_r):
     return _r.return_ignore_pop ()                          #line 90
 
-def EndMxCell__action__ (_r):
-    return _r.return_ignore_pop ()                          #line 91
+def Style__action__ (_r):
+    [rc, stdout, stderr] = shellout.shell_out ("./ndsltemp2 styleexpand.grammar styleexpand.rewrite support.js", _r.string_stack [-1])
+    _r.return_stack.append (stdout)
+
 
 
 import sys
 import receptor
+import shellout
 
 # main...
 _r = receptor.Receptor (sys.stdin)

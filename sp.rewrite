@@ -3,6 +3,7 @@
   
 import sys
 import receptor
+import shellout
 
 # main...
 _r = receptor.Receptor (sys.stdin)
@@ -27,7 +28,8 @@ def «rulename» (_r):«line»⤷
     _r.end_breadcrumb ("«rulename»")
     return «rulename»__action__ (_r)⤶\n’
 
-  rule_empty [line? ws] = ‛’
+  rule_empty [ws1 line? ws2] = ‛’
+  rule_comment [s] = ‛’
   
   pattern_pattern [p line? ws] = ‛«p»«line»’
   pattern_empty [line ws] = ‛’
@@ -65,18 +67,34 @@ def «rulename» (_r):«line»⤷
   cycle [lb line1? spaces1 pattern+ rb line2? spaces2] = ‛\nwhile True:«line1»⤷\n«pattern»⤶«line2»\n’
 
   keyword [k] = ‛«k»’
-  kw [lb s rb] = ‛«lb»«s»«rb»’
-  name [lb firstLetter moreLetter* rb] = ‛«lb»«firstLetter»«moreLetter»«rb»’
+  kw_bracketed [lb s rb] = ‛«lb»«s»«rb»’
+  kw_unbracketed [s] = ‛«s»’
+  name_bracketedname [lb firstLetter moreLetter* rb] = ‛«lb»«firstLetter»«moreLetter»«rb»’
+  name_unbracketedname [firstLetter moreLetter*] = ‛«lb»«firstLetter»«moreLetter»«rb»’
   firstLetter [c] = ‛«c»’
   moreLetter [c] = ‛«c»’
 
-  defaction [_at ws name _eq line? ws2 actions+ ws3] = ‛
+  defaction_internal [_ ws name _eq line? ws2 actions+ ws3] = ‛
 def «name»__action__ (_r):«line»⤷«actions»⤶\n’
+
+  defaction_shellout [_ ws name _eq line? ws2 command ws3] = ‛
+def «name»__action__ (_r):«line»⤷
+  [rc, stdout, stderr] = shellout.shell_out («command», _r.string_stack [-1])
+  _r.return_stack.append (stdout)
+⤶\n’
+  defaction_empty [ws1 line ws2] = ‛’
+  defaction_comment [s] = ‛’
 
   action_return_value [_ _ws line? _ws2] = ‛\nreturn _r.return_string_pop ()«line»’
   action_ignore_value [_ _ws line? _ws2] = ‛\nreturn _r.return_ignore_pop ()«line»’
 
   trace [_trace ws1 s line? ws2] = ‛_r.trace («s»)«line»\n’
   line [lb cs* rb] = ‛#line «cs»’
+
+  command [s] = ‛«s»’
+
+  comment [_ cs* nl] = ‛’
+  nl [c] = ‛’
+
 }
 

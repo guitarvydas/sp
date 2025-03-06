@@ -213,7 +213,7 @@
         "name": "SP to Python",
         "children": [
             {
-                "name": "$ ./ndsl sp.grammar sp.rewrite support.mjs",
+                "name": "$ ./ndsltemp sp.grammar sp.rewrite support.mjs",
                 "id": 5
             }
         ],
@@ -226,7 +226,7 @@
                 },
                 "source_port": "",
                 "target": {
-                    "name": "$ ./ndsl sp.grammar sp.rewrite support.mjs",
+                    "name": "$ ./ndsltemp sp.grammar sp.rewrite support.mjs",
                     "id": 5
                 },
                 "target_port": ""
@@ -234,7 +234,7 @@
             {
                 "dir": 2,
                 "source": {
-                    "name": "$ ./ndsl sp.grammar sp.rewrite support.mjs",
+                    "name": "$ ./ndsltemp sp.grammar sp.rewrite support.mjs",
                     "id": 5
                 },
                 "source_port": "",
@@ -247,7 +247,7 @@
             {
                 "dir": 2,
                 "source": {
-                    "name": "$ ./ndsl sp.grammar sp.rewrite support.mjs",
+                    "name": "$ ./ndsltemp sp.grammar sp.rewrite support.mjs",
                     "id": 5
                 },
                 "source_port": "\u2717",

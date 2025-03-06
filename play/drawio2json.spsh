@@ -95,4 +95,4 @@
 %%% punt work to shell-outs
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-#: Style @ ./dev.bash styleexpander.grammar styleexpander.rewrite support.js -
+#: Style @ "./ndsl styleexpander.grammar styleexpander.rewrite support.js"

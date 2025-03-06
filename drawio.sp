@@ -1,5 +1,5 @@
 ^ Drawio =
-  XML Spaces _end
+  Spaces XML Spaces _end
 
 ^ XML =
   Spaces "<" Name Attributes
@@ -87,5 +87,10 @@
 # EndMxCell = "</mxCell>" Spaces
 
 #: mxGeometry = _ignore_value
-#: Style = _ignore_value
 #: EndMxCell = _ignore_value
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% punt work to shell-outs
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+#: Style @ "./ndsltemp2 styleexpand.grammar styleexpand.rewrite support.js"
