@@ -92,7 +92,7 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% AST-based t2t - parsing and text-to-text rewriting
+%%% punt work to shell-outs
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 #: Style @ ./dev.bash styleexpander.grammar styleexpander.rewrite support.js -
