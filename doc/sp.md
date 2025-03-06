@@ -74,3 +74,10 @@ CompoundBody ^=
 	>>>
   "}"
 ```
+
+- _end
+- languages @t2t, @swipl
+  #: RuleName @ swipl
+...
+- include, copy/paste 
+  #: Rulename < "filename.sp" ???
