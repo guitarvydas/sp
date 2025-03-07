@@ -74,6 +74,12 @@ sp {
   action =
     | kw<"_return_value"> spaces line? spaces -- return_value
     | kw<"_ignore_value"> spaces line? spaces  -- ignore_value
+    | trace_action -- trace
+
+trace_action =
+    | traceAll  -- traceAll
+    | traceAccept  -- traceAccept
+    | trace  -- trace
 
   trace = kw<"_trace"> spaces string line? spaces
   traceAll = kw<"_trace_all"> spaces line? spaces

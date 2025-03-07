@@ -88,6 +88,7 @@ def «name»__action__ (_r):«line»⤷
 
   action_return_value [_ _ws line? _ws2] = ‛\nreturn _r.return_string_pop ()«line»’
   action_ignore_value [_ _ws line? _ws2] = ‛\nreturn _r.return_ignore_pop ()«line»’
+  action_trace [x] = ‛«x»’
 
   trace [_trace ws1 s line? ws2] = ‛_r.trace («s»)«line»\n’
   traceAll [_trace ws1 line? ws2] = ‛_r.trace_all ()«line»\n’

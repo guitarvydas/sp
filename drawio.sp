@@ -87,8 +87,12 @@
 
 # EndMxCell = "</mxCell>" Spaces
 
-#: mxGeometry = _ignore_value
-#: EndMxCell = _ignore_value
+#: mxGeometry =
+  _trace "ignore in mxGeometry"
+  _ignore_value
+#: EndMxCell =
+  _trace "ignore in EndMxCell"
+  _ignore_value
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% punt work to shell-outs
