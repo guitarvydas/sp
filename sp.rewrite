@@ -80,6 +80,7 @@ def «name»__action__ (_r):«line»⤷«actions»⤶\n’
   defaction_shellout [_ ws name _eq line? ws2 command ws3] = ‛
 def «name»__action__ (_r):«line»⤷
   [rc, stdout, stderr] = shellout.shell_out («command», _r.string_stack [-1])
+  _r.string_stack [-1] = ""
   _r.return_stack.append (stdout)
 ⤶\n’
   defaction_empty [ws1 line ws2] = ‛’

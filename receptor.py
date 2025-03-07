@@ -110,6 +110,7 @@ class Receptor:
     def begin_breadcrumb (self, name):
         self.breadcrumb_wip_depth += 1
         b = Breadcrumb (name, self.breadcrumb_wip_depth, self.instream.current_input_position ())
+        self.trace_helper (name)
         self.breadcrumb_wip_stack.append (b)
         
     def end_breadcrumb (self, name):
@@ -118,8 +119,8 @@ class Receptor:
         self.breadcrumb_wip_depth -= 1
 
     def trace (self, s):
-        print (f'\x1B[102m{self.breadcrumb_wip_stack [-1].name} depth={self.breadcrumb_wip_stack [-1].depth} pos={self.breadcrumb_wip_stack [-1].position} c="{self.instream.current_char ()}" {s}\x1B[0m')
-
+        self.trace_helper (s)
+        
     def call (self, f):
         f (self) # for future consideration ...
         
@@ -207,4 +208,6 @@ class Receptor:
             pass
         return c
             
-
+    def trace_helper (self, s):
+        if 0 < len (self.breadcrumb_wip_stack):
+            print (f'\x1B[102m{self.breadcrumb_wip_stack [-1].name} depth={self.breadcrumb_wip_stack [-1].depth} pos={self.breadcrumb_wip_stack [-1].position} c="{self.instream.current_char ()}" {s}\x1B[0m')

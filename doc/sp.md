@@ -35,7 +35,7 @@ Every call to a rule instantiates a new, empty, collector. A stack of collectors
 
 Potential matches are kept `on deck`.
 
-There are 8 basic operations in sp:
+There are several basic operations in sp:
 
 - `.` accept whatever is on-deck - the on-deck string is appended to the end of the current collector string
 - `"..."` match and accept a string of characters, with backtracking - the matcher matches characters from left to right, if it gets to the end, the characters are appended to the collector, if the match fails at any point before the end of the string, all characters matched up to that point are put back at the front of the stream. If the match fails in a non-lookahead context, an syntax error is declared and parsing quits.
@@ -45,6 +45,10 @@ There are 8 basic operations in sp:
 - lookahead choice `[* | "...": ... ]` same as an `accepting choice` except that the `"..."` string is not accepted if it is matched (the match can be immediately accepted, though, by specifying a `.` operation immediately to the right of the `:`)
 - `name` call rule - control transfers to the named rule, which immediately causes a fresh collector to be pushed onto the collector stack. Rules have no explicit parameters - rules only implicitly match against the input stream
 - `ignore_value` - clears the topmost collector, the topmost collector string is replaced by an empty string
+- `_end` - matches the end of input, if any input remains, declares a syntax error
+
+## Extra operations
+- `_trace` inserted into code, display a trace message when encountered
 
 ## Example Cycle
 For example, imagine parsing the body of a curly-braced block of statements. The match might be written as:

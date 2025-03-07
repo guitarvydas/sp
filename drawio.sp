@@ -2,6 +2,7 @@
   Spaces XML Spaces _end
 
 ^ XML =
+  _trace "XML"
   Spaces "<" Name Attributes
   [
     | ">": Content
@@ -93,4 +94,7 @@
 %%% punt work to shell-outs
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-#: Style @ "./ndsltemp2 styleexpand.grammar styleexpand.rewrite support.js"
+% #: Style @ "./ndsltemp2 styleexpand.grammar styleexpand.rewrite support.js"
+% #: Style = _ignore_value
+% #: Style @ "./nothing"
+#: Style @ "./identity"

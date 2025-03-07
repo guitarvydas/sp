@@ -4,6 +4,7 @@ T2T=./t2t
 GRAMMAR=$1
 REWRITE=$2
 SUPPORT=$3
-cat - >/tmp/ndsl2.out
-STDIN=/tmp/ndsl2.out
+# cat - >/tmp/ndsl2.out
+# STDIN=/tmp/ndsl2.out
+STDIN=-
 ${T2T}/nanodsl ${T2T}/lib ${GRAMMAR} ${REWRITE} ${SUPPORT} ${STDIN}
