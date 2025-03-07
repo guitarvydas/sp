@@ -124,7 +124,7 @@ class Receptor:
         self.trace_helper (s)
         
     def trace_all (self):
-        self.trace = True
+        self.tracing = True
 
     def call (self, f):
         f (self) # for future consideration ...
