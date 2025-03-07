@@ -210,4 +210,4 @@ class Receptor:
             
     def trace_helper (self, s):
         if 0 < len (self.breadcrumb_wip_stack):
-            print (f'\x1B[102m{self.breadcrumb_wip_stack [-1].name} depth={self.breadcrumb_wip_stack [-1].depth} pos={self.breadcrumb_wip_stack [-1].position} c="{self.instream.current_char ()}" {s}\x1B[0m')
+            print (f'  ☞ {self.breadcrumb_wip_stack [-1].name} depth={self.breadcrumb_wip_stack [-1].depth} pos={self.breadcrumb_wip_stack [-1].position} c="{self.instream.current_char ()}" {s} ☜')
