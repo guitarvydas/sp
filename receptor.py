@@ -95,6 +95,7 @@ class Receptor:
         self.breadcrumb_stack = []
         self.breadcrumb_wip_stack = []
         self.breadcrumb_wip_depth = 0
+        self.tracing = False
 
     def push_new_string (self):
         self.string_stack.append ("")
@@ -110,7 +111,8 @@ class Receptor:
     def begin_breadcrumb (self, name):
         self.breadcrumb_wip_depth += 1
         b = Breadcrumb (name, self.breadcrumb_wip_depth, self.instream.current_input_position ())
-        self.trace_helper (name)
+        if self.tracing:
+            self.trace_helper (name)
         self.breadcrumb_wip_stack.append (b)
         
     def end_breadcrumb (self, name):
@@ -121,6 +123,9 @@ class Receptor:
     def trace (self, s):
         self.trace_helper (s)
         
+    def trace_all (self):
+        self.trace = True
+
     def call (self, f):
         f (self) # for future consideration ...
         

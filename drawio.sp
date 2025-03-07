@@ -2,7 +2,6 @@
   Spaces XML Spaces _end
 
 ^ XML =
-  _trace "XML"
   Spaces "<" Name Attributes
   [
     | ">": Content
