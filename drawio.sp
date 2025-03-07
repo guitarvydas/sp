@@ -1,4 +1,5 @@
 ^ Drawio =
+  _trace_accept
   Spaces XML Spaces _end
 
 ^ XML =
