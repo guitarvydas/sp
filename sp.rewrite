@@ -91,6 +91,8 @@ def «name»__action__ (_r):«line»⤷
 
   trace [_trace ws1 s line? ws2] = ‛_r.trace («s»)«line»\n’
   traceAll [_trace ws1 line? ws2] = ‛_r.trace_all ()«line»\n’
+  traceAccept [_trace ws1 line? ws2] = ‛_r.trace_accept ()«line»\n’
+
   line [lb cs* rb] = ‛#line «cs»’
 
   command [s] = ‛«s»’

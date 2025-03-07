@@ -96,6 +96,7 @@ class Receptor:
         self.breadcrumb_wip_stack = []
         self.breadcrumb_wip_depth = 0
         self.tracing = False
+        self.trace_accept = False
 
     def push_new_string (self):
         self.string_stack.append ("")
@@ -120,12 +121,6 @@ class Receptor:
         self.breadcrumb_stack.append (b)
         self.breadcrumb_wip_depth -= 1
 
-    def trace (self, s):
-        self.trace_helper (s)
-        
-    def trace_all (self):
-        self.tracing = True
-
     def call (self, f):
         f (self) # for future consideration ...
         
@@ -134,6 +129,8 @@ class Receptor:
         
     def accept_and_append (self):
         s = self.instream.accept ()
+        if self.trace_accept:
+            print (s)
         self.append (s)
 
     def peek (self, s):
@@ -216,3 +213,14 @@ class Receptor:
     def trace_helper (self, s):
         if 0 < len (self.breadcrumb_wip_stack):
             print (f'  ☞ {self.breadcrumb_wip_stack [-1].name} depth={self.breadcrumb_wip_stack [-1].depth} pos={self.breadcrumb_wip_stack [-1].position} c="{self.instream.current_char ()}" {s} ☜')
+
+    def trace (self, s):
+        self.trace_helper (s)
+        
+    def trace_all (self):
+        self.tracing = True
+
+    def trace_accept (self):
+        self.trace_accept = True
+
+            

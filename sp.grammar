@@ -17,7 +17,7 @@ sp {
     | pattern1 line? spaces -- pattern
     | line spaces -- empty
     
-  pattern1 = stringMatch | endop | cond | peekcond | cycle | traceAll | trace | rulecall
+  pattern1 = stringMatch | endop | cond | peekcond | cycle | traceAccept | traceAll | trace | rulecall
 
   endop = kw<"_end"> line? spaces
 
@@ -54,6 +54,7 @@ sp {
   keyword = (
       kw<"_trace_all">
     | kw<"_trace">
+    | kw<"_trace_accept">
     | kw<"_break">
     | kw<"_return_value">
     | kw<"_ignore_value">
@@ -76,6 +77,8 @@ sp {
 
   trace = kw<"_trace"> spaces string line? spaces
   traceAll = kw<"_trace_all"> spaces line? spaces
+  traceAccept = kw<"_trace_accept"> spaces line? spaces
+
   line = "⎩" (~"⎩" ~"⎭" any)* "⎭"
 
   command = string
