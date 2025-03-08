@@ -8,7 +8,6 @@ sp {
     | comment -- comment
 
   defaction =
-    | "#:" spaces rulename "@" line? spaces command spaces -- shellout
     | "#:" spaces rulename "=" line? spaces action+ spaces -- internal
     | spaces line spaces -- empty
     | comment -- comment
@@ -74,9 +73,10 @@ sp {
   action =
     | kw<"_return_value"> spaces line? spaces -- return_value
     | kw<"_ignore_value"> spaces line? spaces  -- ignore_value
+    | "@" spaces string spaces line? spaces -- shellout
     | trace_action -- trace
 
-trace_action =
+  trace_action =
     | traceAll  -- traceAll
     | traceAccept  -- traceAccept
     | trace  -- trace
@@ -86,8 +86,6 @@ trace_action =
   traceAccept = kw<"_trace_accept"> spaces line? spaces
 
   line = "⎩" (~"⎩" ~"⎭" any)* "⎭"
-
-  command = string
 
   comment = "%" (~nl any)* nl
   nl = "\n"
