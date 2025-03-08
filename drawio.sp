@@ -97,8 +97,6 @@
 %%% punt work to shell-outs
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% #: Style @ "./ndsltemp2 styleexpand.grammar styleexpand.rewrite support.js"
-% #: Style = _ignore_value
-% #: Style @ "./nothing"
-#: Style =
-  @ "./identity"
+#: Style = @ "./ndsltemp2 styleexpand.grammar styleexpand.rewrite support.js"
+%#: Style = @ "./identity"
+

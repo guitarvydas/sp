@@ -35,21 +35,22 @@ function exit_rule (name) {
 }
 
 const grammar = String.raw`
-pydecode {
-  text = char+
-  char =
-    | "“" (~"“" ~"”" any)* "”"  -- string
-    | "⌈" (~"⌈" ~"⌉" any)* "⌉"  -- comment
-    | "⎝" (~"⎝" ~"⎠" any)* "⎠"  -- errormessage
-    | "⎩" (~"⎩" ~"⎭" any)* "⎭"  -- line
-    | "❲"                       -- ulb
-    | "%E2%9D%B2"               -- encodedulb
-    | "❳"                       -- urb
-    | "%E2%9D%B3"               -- encodedurb
-    | "%20"                     -- space
-    | "%09"                     -- tab
-    | "%0A"                     -- newline
-    | any                       -- other
+styleexpand {
+  main = item+
+  item =
+    | "style" spaces "=" spaces stylestr -- style
+    | any                       -- default
+  stylestr = dq styleitem+ dq
+  styleitem=
+    | word "=" number ";" -- num
+    | word "=" word   ";" -- eq
+    | word            ";" -- declaration
+  word = wchar+
+  wchar = ~";" ~"=" ~dq any
+  number = sign? fdigit+
+  sign = "+" | "-"
+  fdigit = digit | "."
+  dq = "\""
 }
 
 `;
@@ -65,36 +66,7 @@ function fetchArg (name) {
     return args [name];
 }
 
-function encodews (s) { return encodequotes (encodeURIComponent (s)); }
-
-function encodequotes (s) { 
-    let rs = s.replace (/"/g, '%22').replace (/'/g, '%27');
-    return rs;
-}
-
-let linenumber = 0;
-function getlineinc () {
-    linenumber += 1;
-    return `${linenumber}`;
-}
-
-function part (s, i) {
-    let lis = s.split ("⫶");
-    let len = lis.length - 1
-    let r = []
-    let ix = Number (i);
-    for (; ix < len ; ix += 3) {
-	r.push (`${lis [ix]}`);
-    }
-    return `${r.join ('')}`;
-}
-
-function enspace (arr) {
-    // create space-separated args for exec
-    return arr;
-    //return arr.join (" ");
-}
-
+// empty
 let parameters = {};
 function pushParameter (name, v) {
     if (!parameters [name]) {
@@ -112,71 +84,70 @@ function getParameter (name) {
 
 let _rewrite = {
 
-text : function (chars,) {
-enter_rule ("text");
-    set_return (`${chars.rwr ().join ('')}`);
-return exit_rule ("text");
+main : function (item,) {
+enter_rule ("main");
+    set_return (`${item.rwr ().join ('')}`);
+return exit_rule ("main");
 },
-char_string : function (lq,cs,rq,) {
-enter_rule ("char_string");
-    set_return (`"${cs.rwr ().join ('')}"`);
-return exit_rule ("char_string");
+item_style : function (_style,spaces,_colon,spaces2,stylestr,) {
+enter_rule ("item_style");
+    set_return (`${stylestr.rwr ()}`);
+return exit_rule ("item_style");
 },
-char_comment : function (lb,cs,rb,) {
-enter_rule ("char_comment");
-    set_return (`#${cs.rwr ().join ('')}`);
-return exit_rule ("char_comment");
-},
-char_errormessage : function (lb,cs,rb,) {
-enter_rule ("char_errormessage");
-    set_return (` >>> ${cs.rwr ().join ('')} <<< `);
-return exit_rule ("char_errormessage");
-},
-char_line : function (lb,cs,rb,) {
-enter_rule ("char_line");
-    set_return (`#line ${cs.rwr ().join ('')}`);
-return exit_rule ("char_line");
-},
-char_ulb : function (c,) {
-enter_rule ("char_ulb");
-    set_return (``);
-return exit_rule ("char_ulb");
-},
-char_encodedulb : function (c,) {
-enter_rule ("char_encodedulb");
-    set_return (`_L`);
-return exit_rule ("char_encodedulb");
-},
-char_urb : function (c,) {
-enter_rule ("char_urb");
-    set_return (``);
-return exit_rule ("char_urb");
-},
-char_encodedurb : function (c,) {
-enter_rule ("char_encodedurb");
-    set_return (`R_`);
-return exit_rule ("char_encodedurb");
-},
-char_space : function (c,) {
-enter_rule ("char_space");
-    set_return (`_`);
-return exit_rule ("char_space");
-},
-char_tab : function (c,) {
-enter_rule ("char_tab");
-    set_return (`	`);
-return exit_rule ("char_tab");
-},
-char_newline : function (c,) {
-enter_rule ("char_newline");
-    set_return (`
-`);
-return exit_rule ("char_newline");
-},
-char_other : function (c,) {
-enter_rule ("char_other");
+item_default : function (c,) {
+enter_rule ("item_default");
     set_return (`${c.rwr ()}`);
-return exit_rule ("char_other");
+return exit_rule ("item_default");
+},
+stylestr : function (dq,styleitem,dq2,) {
+enter_rule ("stylestr");
+    set_return (`${styleitem.rwr ().join ('')}`);
+return exit_rule ("stylestr");
+},
+styleitem_num : function (word,_eq,number,_semicolon,) {
+enter_rule ("styleitem_num");
+    set_return (`\n"${word.rwr ()}" : ${number.rwr ()}, `);
+return exit_rule ("styleitem_num");
+},
+styleitem_eq : function (word,_eq,v,_semicolon,) {
+enter_rule ("styleitem_eq");
+    set_return (`\n"${word.rwr ()}": "${v.rwr ()}", `);
+return exit_rule ("styleitem_eq");
+},
+styleitem_declaration : function (word,_semicolon,) {
+enter_rule ("styleitem_declaration");
+    set_return (`\n"${word.rwr ()}" : true, `);
+return exit_rule ("styleitem_declaration");
+},
+word : function (wchar,) {
+enter_rule ("word");
+    set_return (`${wchar.rwr ().join ('')}`);
+return exit_rule ("word");
+},
+wchar : function (c,) {
+enter_rule ("wchar");
+    set_return (`${c.rwr ()}`);
+return exit_rule ("wchar");
+},
+number : function (sign,fdigit,) {
+enter_rule ("number");
+    set_return (`${sign.rwr ().join ('')}${fdigit.rwr ().join ('')}`);
+return exit_rule ("number");
+},
+sign : function (c,) {
+enter_rule ("sign");
+    set_return (`${c.rwr ()}`);
+return exit_rule ("sign");
+},
+fdigit : function (c,) {
+enter_rule ("fdigit");
+    set_return (`${c.rwr ()}`);
+return exit_rule ("fdigit");
+},
+dq : function (c,) {
+enter_rule ("dq");
+    set_return (`${c.rwr ()}`);
+return exit_rule ("dq");
 },
 _terminal: function () { return this.sourceString; },
 _iter: function (...children) { return children.map(c => c.rwr ()); }

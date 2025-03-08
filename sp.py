@@ -294,10 +294,10 @@ def mxGeometry__action__ (_r):                              #line 91
 def EndMxCell__action__ (_r):                               #line 93
     return _r.return_ignore_pop ()                          #line 94
 
-def Style__action__ (_r):                                   #line 103
-    [rc, stdout, stderr] = shellout.shell_out ("./identity", _r.string_stack [-1])
+def Style__action__ (_r):
+    [rc, stdout, stderr] = shellout.shell_out ("./ndsltemp2 styleexpand.grammar styleexpand.rewrite support.js", _r.string_stack [-1])
     _r.string_stack [-1] = stdout
-    _r.return_string_pop ()                                 #line 104
+    _r.return_string_pop ()                                 #line 100
 
 
 

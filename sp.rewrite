@@ -79,11 +79,12 @@ def «name»__action__ (_r):«line»⤷«actions»⤶\n’
 
   defaction_empty [ws1 line ws2] = ‛’
   defaction_comment [s] = ‛’
+  defaction_end [_] = ‛’
 
-  action_return_value [_ _ws line? _ws2] = ‛\nreturn _r.return_string_pop ()«line»’
-  action_ignore_value [_ _ws line? _ws2] = ‛\nreturn _r.return_ignore_pop ()«line»’
+  action_return_value [_ _ws line?] = ‛\nreturn _r.return_string_pop ()«line»’
+  action_ignore_value [_ _ws line?] = ‛\nreturn _r.return_ignore_pop ()«line»’
 
-  action_shellout [_at _ws cmd _ws2 line? _ws3] = 
+  action_shellout [_at _ws cmd _ws2 line?] = 
 ‛
   [rc, stdout, stderr] = shellout.shell_out («cmd», _r.string_stack [-1])
   _r.string_stack [-1] = stdout
