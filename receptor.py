@@ -1,7 +1,15 @@
 
 #####
 
-
+class Colors:
+    RED = "\033[31m"
+    GREEN = "\033[32m"
+    YELLOW = "\033[33m"
+    BLUE = "\033[34m"
+    MAGENTA = "\033[35m"
+    CYAN = "\033[36m"
+    RESET = "\033[0m"
+    
 class InCharacter:
     def __init__ (self, c='', position=0):
         self.c = c
@@ -130,7 +138,7 @@ class Receptor:
     def accept_and_append (self):
         s = self.instream.accept ()
         if self.accept_tracing:
-            print (s, end="")
+            print (f'{Colors.YELLOW}{s}{Colors.RESET}', end="")
         self.append (s)
 
     def peek (self, s):
@@ -194,7 +202,7 @@ class Receptor:
         c = self.instream.current_char ()
         c = self.make_printable (c)
         s = self.make_printable (s)
-        print (f'\x1B[101mReceptor error at input position {self.instream.current_input_position ()} wanted "{s}" got "{c}" (rule {b.name} beginning at {b.position})"\x1B[0m')
+        print (f'{Colors.RED}Receptor error at input position {self.instream.current_input_position ()} wanted "{s}" got "{c}" (rule {b.name} beginning at {b.position})"{Colors.RESET}')
         sys.exit (1)
 
     def make_printable (self, c):
@@ -212,7 +220,7 @@ class Receptor:
             
     def trace_helper (self, s):
         if 0 < len (self.breadcrumb_wip_stack):
-            print (f'  ☞ {self.breadcrumb_wip_stack [-1].name} depth={self.breadcrumb_wip_stack [-1].depth} pos={self.breadcrumb_wip_stack [-1].position} c="{self.instream.current_char ()}" {s} ☜')
+            print (f'  {Colors.RED}☞ {self.breadcrumb_wip_stack [-1].name} depth={self.breadcrumb_wip_stack [-1].depth} pos={self.breadcrumb_wip_stack [-1].position} c="{self.instream.current_char ()}" {s} ☜{Colors.RESET}')
 
     def trace (self, s):
         self.trace_helper (s)
