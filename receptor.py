@@ -98,7 +98,7 @@ class Receptor:
 
     def __init__ (self, instream):
         self.instream = CharacterStream (instream)
-        self.string_stack = []
+        self.collector_stack = []
         self.return_stack = []
         self.breadcrumb_stack = []
         self.breadcrumb_wip_stack = []
@@ -107,14 +107,14 @@ class Receptor:
         self.accept_tracing = False
 
     def push_new_string (self):
-        self.string_stack.append ("")
+        self.collector_stack.append ("")
         
     def return_string_pop (self):
-            r = self.string_stack.pop ()
+            r = self.collector_stack.pop ()
             self.return_stack.append (r)
 
     def return_ignore_pop (self):
-            r = self.string_stack.pop ()
+            r = self.collector_stack.pop ()
             self.return_stack.append ("")
 
     def begin_breadcrumb (self, name):
@@ -133,7 +133,7 @@ class Receptor:
         f (self) # for future consideration ...
         
     def append (self, s):
-        self.string_stack [-1] = self.string_stack [-1] + s
+        self.collector_stack [-1] = self.collector_stack [-1] + s
         
     def accept_and_append (self):
         s = self.instream.accept ()
@@ -141,6 +141,13 @@ class Receptor:
             print (f'{Colors.YELLOW}{s}{Colors.RESET}', end="")
         self.append (s)
 
+    def get_collector_top (self):
+        return self.collector_stack [-1]
+
+    def set_collector_top (self, s):
+        self.collector_stack [-1] = s
+        return s
+    
     def peek (self, s):
         if self.peek_recursively (s):
             self.instream.rewind ()

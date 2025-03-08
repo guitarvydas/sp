@@ -139,142 +139,142 @@ def Style (_r):
     _r.end_breadcrumb ("Style")
     return Style__action__ (_r)
 
-def Name (_r):                                              #line 43
+def Name (_r):                                              #line 42
     _r.push_new_string ()
     _r.begin_breadcrumb ("Name")
 
-    while True:                                             #line 44
+    while True:                                             #line 43
 
         if False:
             pass
         elif _r.peek (" "):
+            break                                           #line 45
+
+            pass
+        elif _r.peek ("\t"):
             break                                           #line 46
 
             pass
-        elif _r.peek ("\t"):
+        elif _r.peek ("\n"):
             break                                           #line 47
 
             pass
-        elif _r.peek ("\n"):
+        elif _r.peek (">"):
             break                                           #line 48
 
             pass
-        elif _r.peek (">"):
+        elif _r.peek ("<"):
             break                                           #line 49
 
             pass
-        elif _r.peek ("<"):
+        elif _r.peek ("/>"):
             break                                           #line 50
 
             pass
-        elif _r.peek ("/>"):
+        elif _r.eof ():
             break                                           #line 51
 
             pass
-        elif _r.eof ():
-            break                                           #line 52
-
-            pass
         elif True:
-            _r.accept_and_append ()                         #line 53
+            _r.accept_and_append ()                         #line 52
 
             pass
+                                                            #line 54
                                                             #line 55
-                                                            #line 56
     _r.end_breadcrumb ("Name")
     return _r.return_string_pop ()
 
-def Stuff (_r):                                             #line 57
+def Stuff (_r):                                             #line 56
     _r.push_new_string ()
     _r.begin_breadcrumb ("Stuff")
 
-    while True:                                             #line 58
+    while True:                                             #line 57
 
         if False:
             pass
         elif _r.peek (">"):
-            break                                           #line 60
+            break                                           #line 59
 
             pass
         elif _r.peek ("<"):
-            break                                           #line 61
+            break                                           #line 60
 
             pass
         elif _r.peek ("/>"):
-            break                                           #line 62
+            break                                           #line 61
 
             pass
         elif _r.eof ():
-            break                                           #line 63
+            break                                           #line 62
 
             pass
         elif True:
-            _r.accept_and_append ()                         #line 64
+            _r.accept_and_append ()                         #line 63
 
             pass
+                                                            #line 65
                                                             #line 66
-                                                            #line 67
     _r.end_breadcrumb ("Stuff")
     return _r.return_string_pop ()
 
-def Spaces (_r):                                            #line 68
+def Spaces (_r):                                            #line 67
     _r.push_new_string ()
     _r.begin_breadcrumb ("Spaces")
 
-    while True:                                             #line 69
+    while True:                                             #line 68
 
         if False:
             pass
         elif _r.peek (" "):
-            _r.accept_and_append ()                         #line 71
+            _r.accept_and_append ()                         #line 70
 
             pass
         elif _r.peek ("\t"):
-            _r.accept_and_append ()                         #line 72
+            _r.accept_and_append ()                         #line 71
 
             pass
         elif _r.peek ("\n"):
-            _r.accept_and_append ()                         #line 73
+            _r.accept_and_append ()                         #line 72
 
             pass
         elif True:
-            break                                           #line 74
+            break                                           #line 73
 
             pass
+                                                            #line 75
                                                             #line 76
-                                                            #line 77
     _r.end_breadcrumb ("Spaces")
     return _r.return_string_pop ()
 
-def String (_r):                                            #line 78
+def String (_r):                                            #line 77
     _r.push_new_string ()
     _r.begin_breadcrumb ("String")
     _r.need_and_append ("\"")
     _r.call (NotDquotes)
     _r.append_returned_string ()
     _r.need_and_append ("\"")
-                                                            #line 79
+                                                            #line 78
     _r.end_breadcrumb ("String")
     return _r.return_string_pop ()
 
-def NotDquotes (_r):                                        #line 81
+def NotDquotes (_r):                                        #line 80
     _r.push_new_string ()
     _r.begin_breadcrumb ("NotDquotes")
 
-    while True:                                             #line 82
+    while True:                                             #line 81
 
         if False:
             pass
         elif _r.peek ("\""):
-            break                                           #line 84
+            break                                           #line 83
 
             pass
         elif True:
-            _r.accept_and_append ()                         #line 85
+            _r.accept_and_append ()                         #line 84
 
             pass
+                                                            #line 86
                                                             #line 87
-                                                            #line 88
     _r.end_breadcrumb ("NotDquotes")
     return _r.return_string_pop ()
 
@@ -284,22 +284,30 @@ def EndMxCell (_r):
     _r.need_and_append ("</mxCell>")
     _r.call (Spaces)
     _r.append_returned_string ()
-                                                            #line 89
+                                                            #line 88
     _r.end_breadcrumb ("EndMxCell")
     return EndMxCell__action__ (_r)
 
-def mxGeometry__action__ (_r):                              #line 91
-    return _r.return_ignore_pop ()                          #line 92
+def mxGeometry__action__ (_r):                              #line 90
+    return _r.return_ignore_pop ()                          #line 91
+    _r.return_string_pop ()
 
-def EndMxCell__action__ (_r):                               #line 93
-    return _r.return_ignore_pop ()                          #line 94
+def EndMxCell__action__ (_r):                               #line 92
+    return _r.return_ignore_pop ()                          #line 93
+    _r.return_string_pop ()
 
-def Style__action__ (_r):
-    [rc, stdout, stderr] = shellout.shell_out ("./ndsltemp2 styleexpand.grammar styleexpand.rewrite support.js", _r.string_stack [-1])
-    _r.string_stack [-1] = stdout
-    _r.return_string_pop ()                                 #line 100
+def Style__action__ (_r):                                   #line 99
+    _r.trace ("Style shellout")                             #line 100
 
+    [rc, stdout, stderr] = shellout.shell_out ("./ndsltemp2 styleexpand.grammar styleexpand.rewrite support.js", _r.get_collector_top ())
+    _r.set_collector_top (stdout)
 
+    _r.trace ("Style identity")                             #line 102
+
+    [rc, stdout, stderr] = shellout.shell_out ("./identity", _r.get_collector_top ())
+    _r.set_collector_top (stdout)
+
+    _r.return_string_pop ()
 
 
 import sys

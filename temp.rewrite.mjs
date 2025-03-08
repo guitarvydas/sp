@@ -37,17 +37,17 @@ return exit_rule ("stylestr");
 },
 styleitem_num : function (word,_eq,number,_semicolon,) {
 enter_rule ("styleitem_num");
-    set_return (`\n"${word.rwr ()}" : ${number.rwr ()}, `);
+    set_return (`\n${word.rwr ()}=${number.rwr ()} `);
 return exit_rule ("styleitem_num");
 },
 styleitem_eq : function (word,_eq,v,_semicolon,) {
 enter_rule ("styleitem_eq");
-    set_return (`\n"${word.rwr ()}": "${v.rwr ()}", `);
+    set_return (`\n${word.rwr ()}="${v.rwr ()}" `);
 return exit_rule ("styleitem_eq");
 },
 styleitem_declaration : function (word,_semicolon,) {
 enter_rule ("styleitem_declaration");
-    set_return (`\n"${word.rwr ()}" : true, `);
+    set_return (`\n${word.rwr ()}="true" `);
 return exit_rule ("styleitem_declaration");
 },
 word : function (wchar,) {
@@ -62,7 +62,7 @@ return exit_rule ("wchar");
 },
 number : function (sign,fdigit,) {
 enter_rule ("number");
-    set_return (`${sign.rwr ().join ('')}${fdigit.rwr ().join ('')}`);
+    set_return (`"${sign.rwr ().join ('')}${fdigit.rwr ().join ('')}"`);
 return exit_rule ("number");
 },
 sign : function (c,) {

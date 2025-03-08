@@ -38,7 +38,6 @@
   >>>
 
 # Style = "style=" String
-%^ Style = "style=" String
 
 ^ Name =
   <<<
@@ -97,6 +96,8 @@
 %%% punt work to shell-outs
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-#: Style = @ "./ndsltemp2 styleexpand.grammar styleexpand.rewrite support.js"
-%#: Style = @ "./identity"
-
+#: Style = 
+  _trace "Style shellout"
+  @ "./ndsltemp2 styleexpand.grammar styleexpand.rewrite support.js"
+  _trace "Style identity"
+  @ "./identity"

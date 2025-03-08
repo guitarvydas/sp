@@ -8,7 +8,7 @@ sp {
     | comment -- comment
 
   defaction =
-    | "#:" spaces rulename "=" line? spaces action+ spaces -- internal
+    | "#:" spaces rulename "=" spaces line? spaces action+ spaces -- internal
     | spaces line spaces -- empty
     | comment -- comment
     | kw<"_end"> -- end
@@ -73,9 +73,9 @@ sp {
   moreLetter = digit | firstLetter
 
   action =
-    | kw<"_return_value"> spaces line? -- return_value
-    | kw<"_ignore_value"> spaces line?  -- ignore_value
-    | "@" spaces string spaces line? -- shellout
+    | kw<"_return_value"> spaces line? spaces -- return_value
+    | kw<"_ignore_value"> spaces line? spaces -- ignore_value
+    | "@" spaces string spaces line? spaces   -- shellout
     | trace_action -- trace
 
   trace_action =
