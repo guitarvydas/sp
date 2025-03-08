@@ -14,15 +14,15 @@ print (s)
 
   rule_return_value [_colon spaces rulename _ret_eq line? spaces2 pattern+] =‛
 def «rulename» (_r):«line»⤷
-    _r.push_new_string ()
+    _r.push_new_collector ()
     _r.begin_breadcrumb ("«rulename»")
     «pattern»
     _r.end_breadcrumb ("«rulename»")
-    return _r.return_string_pop ()⤶\n’
+    return _r.return_collector_pop ()⤶\n’
 
   rule_rewrite_value [_colon spaces rulename _ret_at line? spaces2 pattern+] =‛
 def «rulename» (_r):«line»⤷
-    _r.push_new_string ()
+    _r.push_new_collector ()
     _r.begin_breadcrumb ("«rulename»")
     «pattern»
     _r.end_breadcrumb ("«rulename»")
@@ -75,13 +75,13 @@ def «rulename» (_r):«line»⤷
   moreLetter [c] = ‛«c»’
 
   defaction_internal [_ ws name _eq ws1 line? ws2 actions+ ws3] = ‛
-def «name»__action__ (_r):«line»⤷«actions»\n_r.return_string_pop ()⤶\n’
+def «name»__action__ (_r):«line»⤷«actions»\n_r.return_collector_pop ()⤶\n’
 
   defaction_empty [ws1 line ws2] = ‛’
   defaction_comment [s] = ‛’
   defaction_end [_] = ‛’
 
-  action_return_value [_ _ws line? _ws2] = ‛\nreturn _r.return_string_pop ()«line»’
+  action_return_value [_ _ws line? _ws2] = ‛\nreturn _r.return_collector_pop ()«line»’
   action_ignore_value [_ _ws line? _ws2] = ‛\nreturn _r.return_ignore_pop ()«line»’
 
   action_shellout [_at _ws cmd _ws2 line? _ws3] = 

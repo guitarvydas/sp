@@ -1,5 +1,5 @@
 def Drawio (_r):                                            #line 1
-    _r.push_new_string ()
+    _r.push_new_collector ()
     _r.begin_breadcrumb ("Drawio")
     _r.call (Spaces)
     _r.append_returned_string ()
@@ -10,10 +10,10 @@ def Drawio (_r):                                            #line 1
     _r.eof ()                                               #line 2
                                                             #line 3
     _r.end_breadcrumb ("Drawio")
-    return _r.return_string_pop ()
+    return _r.return_collector_pop ()
 
 def XML (_r):                                               #line 4
-    _r.push_new_string ()
+    _r.push_new_collector ()
     _r.begin_breadcrumb ("XML")
     _r.call (Spaces)
     _r.append_returned_string ()
@@ -50,10 +50,10 @@ def XML (_r):                                               #line 4
         pass
                                                             #line 14
     _r.end_breadcrumb ("XML")
-    return _r.return_string_pop ()
+    return _r.return_collector_pop ()
 
 def Content (_r):                                           #line 15
-    _r.push_new_string ()
+    _r.push_new_collector ()
     _r.begin_breadcrumb ("Content")
 
     while True:                                             #line 16
@@ -84,10 +84,10 @@ def Content (_r):                                           #line 15
                                                             #line 24
                                                             #line 25
     _r.end_breadcrumb ("Content")
-    return _r.return_string_pop ()
+    return _r.return_collector_pop ()
 
 def mxGeometry (_r):
-    _r.push_new_string ()
+    _r.push_new_collector ()
     _r.begin_breadcrumb ("mxGeometry")
     _r.call (XML)
     _r.append_returned_string ()
@@ -96,7 +96,7 @@ def mxGeometry (_r):
     return mxGeometry__action__ (_r)
 
 def Attributes (_r):                                        #line 29
-    _r.push_new_string ()
+    _r.push_new_collector ()
     _r.begin_breadcrumb ("Attributes")
 
     while True:                                             #line 30
@@ -127,10 +127,10 @@ def Attributes (_r):                                        #line 29
                                                             #line 38
                                                             #line 39
     _r.end_breadcrumb ("Attributes")
-    return _r.return_string_pop ()
+    return _r.return_collector_pop ()
 
 def Style (_r):
-    _r.push_new_string ()
+    _r.push_new_collector ()
     _r.begin_breadcrumb ("Style")
     _r.need_and_append ("style=")
     _r.call (String)
@@ -140,7 +140,7 @@ def Style (_r):
     return Style__action__ (_r)
 
 def Name (_r):                                              #line 42
-    _r.push_new_string ()
+    _r.push_new_collector ()
     _r.begin_breadcrumb ("Name")
 
     while True:                                             #line 43
@@ -182,10 +182,10 @@ def Name (_r):                                              #line 42
                                                             #line 54
                                                             #line 55
     _r.end_breadcrumb ("Name")
-    return _r.return_string_pop ()
+    return _r.return_collector_pop ()
 
 def Stuff (_r):                                             #line 56
-    _r.push_new_string ()
+    _r.push_new_collector ()
     _r.begin_breadcrumb ("Stuff")
 
     while True:                                             #line 57
@@ -215,10 +215,10 @@ def Stuff (_r):                                             #line 56
                                                             #line 65
                                                             #line 66
     _r.end_breadcrumb ("Stuff")
-    return _r.return_string_pop ()
+    return _r.return_collector_pop ()
 
 def Spaces (_r):                                            #line 67
-    _r.push_new_string ()
+    _r.push_new_collector ()
     _r.begin_breadcrumb ("Spaces")
 
     while True:                                             #line 68
@@ -244,10 +244,10 @@ def Spaces (_r):                                            #line 67
                                                             #line 75
                                                             #line 76
     _r.end_breadcrumb ("Spaces")
-    return _r.return_string_pop ()
+    return _r.return_collector_pop ()
 
 def String (_r):                                            #line 77
-    _r.push_new_string ()
+    _r.push_new_collector ()
     _r.begin_breadcrumb ("String")
     _r.need_and_append ("\"")
     _r.call (NotDquotes)
@@ -255,10 +255,10 @@ def String (_r):                                            #line 77
     _r.need_and_append ("\"")
                                                             #line 78
     _r.end_breadcrumb ("String")
-    return _r.return_string_pop ()
+    return _r.return_collector_pop ()
 
 def NotDquotes (_r):                                        #line 80
-    _r.push_new_string ()
+    _r.push_new_collector ()
     _r.begin_breadcrumb ("NotDquotes")
 
     while True:                                             #line 81
@@ -276,10 +276,10 @@ def NotDquotes (_r):                                        #line 80
                                                             #line 86
                                                             #line 87
     _r.end_breadcrumb ("NotDquotes")
-    return _r.return_string_pop ()
+    return _r.return_collector_pop ()
 
 def EndMxCell (_r):
-    _r.push_new_string ()
+    _r.push_new_collector ()
     _r.begin_breadcrumb ("EndMxCell")
     _r.need_and_append ("</mxCell>")
     _r.call (Spaces)
@@ -290,11 +290,11 @@ def EndMxCell (_r):
 
 def mxGeometry__action__ (_r):                              #line 90
     return _r.return_ignore_pop ()                          #line 91
-    _r.return_string_pop ()
+    _r.return_collector_pop ()
 
 def EndMxCell__action__ (_r):                               #line 92
     return _r.return_ignore_pop ()                          #line 93
-    _r.return_string_pop ()
+    _r.return_collector_pop ()
 
 def Style__action__ (_r):                                   #line 99
     _r.trace ("Style shellout")                             #line 100
@@ -307,7 +307,7 @@ def Style__action__ (_r):                                   #line 99
     [rc, stdout, stderr] = shellout.shell_out ("./identity", _r.get_collector_top ())
     _r.set_collector_top (stdout)
 
-    _r.return_string_pop ()
+    _r.return_collector_pop ()
 
 
 import sys

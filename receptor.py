@@ -106,12 +106,12 @@ class Receptor:
         self.tracing = False
         self.accept_tracing = False
 
-    def push_new_string (self):
+    def push_new_collector (self):
         self.collector_stack.append ("")
         
-    def return_string_pop (self):
-            r = self.collector_stack.pop ()
-            self.return_stack.append (r)
+    def return_collector_pop (self):
+            s = self.collector_stack.pop ()
+            self.return_stack.append (s)
 
     def return_ignore_pop (self):
             r = self.collector_stack.pop ()
@@ -142,10 +142,13 @@ class Receptor:
         self.append (s)
 
     def get_collector_top (self):
+        print (f'\nGET {self.collector_stack [-1]}')
         return self.collector_stack [-1]
 
     def set_collector_top (self, s):
+        print (f'\nSET {s} {self.collector_stack [-1]}')
         self.collector_stack [-1] = s
+        print (f'  EXIT Set {self.collector_stack [-1]}')
         return s
     
     def peek (self, s):
