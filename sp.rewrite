@@ -90,9 +90,9 @@ def «name»__action__ (_r):«line»⤷
   action_ignore_value [_ _ws line? _ws2] = ‛\nreturn _r.return_ignore_pop ()«line»’
   action_trace [x] = ‛«x»’
 
-  trace [_trace ws1 s line? ws2] = ‛_r.trace («s»)«line»\n’
-  traceAll [_trace ws1 line? ws2] = ‛_r.trace_all ()«line»\n’
-  traceAccept [_trace ws1 line? ws2] = ‛_r.trace_accept ()«line»\n’
+  trace [_trace ws1 s line? ws2] = ‛\n_r.trace («s»)«line»\n’
+  traceAll [_trace ws1 line? ws2] = ‛\n_r.trace_all ()«line»\n’
+  traceAccept [_trace ws1 line? ws2] = ‛\n_r.trace_accept ()«line»\n’
 
   line [lb cs* rb] = ‛#line «cs»’
 

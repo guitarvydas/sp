@@ -1,5 +1,4 @@
 ^ Drawio =
-  _trace_accept
   Spaces XML Spaces _end
 
 ^ XML =
@@ -24,7 +23,9 @@
     ]
   >>>
 
-# mxGeometry = XML
+
+%# mxGeometry = XML
+^ mxGeometry = XML
 
 ^ Attributes =
   <<<
@@ -37,7 +38,8 @@
     ]
   >>>
 
-# Style = "style=" String
+% # Style = "style=" String
+^ Style = "style=" String
 
 ^ Name =
   <<<
@@ -86,12 +88,13 @@
   >>>
 
 # EndMxCell = "</mxCell>" Spaces
+%^ EndMxCell = "</mxCell>" Spaces
 
 #: mxGeometry =
   _trace "ignore in mxGeometry"
   _ignore_value
 #: EndMxCell =
-  _trace "ignore in EndMxCell"
+  _trace "******** ignore in EndMxCell"
   _ignore_value
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
